@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+  <rect width="800" height="800" fill="#2f5233"/>
+  <circle cx="400" cy="360" r="70" fill="#ffffff" opacity="0.15"/>
+  <path d="M400 300 C 440 340, 440 400, 400 440 C 360 400, 360 340, 400 300 Z" fill="#ffffff" opacity="0.35"/>
+  <text x="400" y="520" font-family="sans-serif" font-size="28" fill="#ffffff" fill-opacity="0.8" text-anchor="middle">Gallery Photo</text>
+</svg>

@@ -1,0 +1,30 @@
+---
+import gallery from '../data/gallery.json';
+---
+
+<section id="gallery" class="py-20 sm:py-24">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-2xl text-center">
+      <h2 class="text-balance text-3xl font-bold tracking-tight text-stone-900">Our Work</h2>
+      <p class="mt-4 text-stone-600">A few examples of recent projects.</p>
+    </div>
+
+    <div class="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3">
+      {gallery.items.map((item) => (
+        <figure class="overflow-hidden rounded-lg bg-stone-200">
+          <img
+            src={item.image}
+            alt={item.alt}
+            loading="lazy"
+            class="aspect-square h-full w-full object-cover"
+          />
+          {item.caption && (
+            <figcaption class="px-2 py-2 text-center text-xs text-stone-600">
+              {item.caption}
+            </figcaption>
+          )}
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>

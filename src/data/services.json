@@ -1,0 +1,34 @@
+{
+  "heading": "Our Services",
+  "intro": "Property renovation and building work, with garden care on the side.",
+  "items": [
+    {
+      "title": "Property Renovation",
+      "description": "Full room renovations, from flooring to walls and finishing touches."
+    },
+    {
+      "title": "Stud Walling & Plaster Boarding",
+      "description": "Stud walls, insulation, and plasterboard for room conversions."
+    },
+    {
+      "title": "Fitted Carpentry & Storage",
+      "description": "Custom-built cupboards, wardrobes, and storage solutions."
+    },
+    {
+      "title": "Patios & Paving",
+      "description": "Garden patios and pathways designed and built to last."
+    },
+    {
+      "title": "Fascia & Guttering",
+      "description": "Repairs and maintenance to keep fascias and gutters in top condition."
+    },
+    {
+      "title": "General Property Maintenance",
+      "description": "General repairs and upkeep to keep your property in top shape."
+    },
+    {
+      "title": "Electrical",
+      "description": "Electrical work available on request."
+    }
+  ]
+}

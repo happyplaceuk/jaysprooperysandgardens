@@ -1,0 +1,19 @@
+---
+import services from '../data/services.json';
+---
+
+<section id="services" class="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
+  <div class="mx-auto max-w-2xl text-center">
+    <h2 class="text-balance text-3xl font-bold tracking-tight text-stone-900">{services.heading}</h2>
+    <p class="mt-4 text-stone-600">{services.intro}</p>
+  </div>
+
+  <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {services.items.map((service) => (
+      <div class="rounded-lg border border-stone-200 p-6">
+        <h3 class="text-lg font-semibold text-green-800">{service.title}</h3>
+        <p class="mt-2 text-sm leading-relaxed text-stone-600">{service.description}</p>
+      </div>
+    ))}
+  </div>
+</section>

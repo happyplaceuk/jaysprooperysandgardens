@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Content Manager</title>
+    <!--
+      Decap CMS is loaded from a CDN here to keep the project dependency-free.
+      If you'd rather bundle it instead, run `npm install decap-cms-app` and import it.
+    -->
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  </head>
+  <body>
+    <!--
+      NETLIFY IDENTITY / AUTH SETUP — required before the CMS works in production:
+      1. In the Netlify dashboard, open Site configuration > Identity, and enable Identity.
+      2. Under Identity > Registration, set to "Invite only" (recommended for a client site).
+      3. Under Identity > Services, enable "Git Gateway" — this lets Decap CMS commit
+         content changes to this repo on the client's behalf without them needing a GitHub account.
+      4. Invite the client's email address under Identity > Invite users.
+      5. The client follows the invite email, sets a password, and can then log in at /admin.
+      No code changes are needed for this step — it's all Netlify dashboard configuration.
+    -->
+  </body>
+</html>

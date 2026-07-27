@@ -1,0 +1,109 @@
+# Netlify Identity + Git Gateway handle authentication and commit access.
+# See the setup comment in public/admin/index.html for the one-time Netlify
+# dashboard configuration needed before this works in production.
+backend:
+  name: git-gateway
+  branch: main
+
+# This powers the "Preview" link shown after editing an entry.
+site_url: "https://jayspropertiesandgardens.co.uk"
+
+# For local testing without deploying, run Decap's local proxy server
+# (`npx decap-server` in a separate terminal) and uncomment the line below.
+# local_backend: true
+
+# Default upload location for any image field that doesn't set its own
+# media_folder/public_folder (see the Gallery collection below for an example
+# of a field-level override).
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "site"
+    label: "Site Settings"
+    files:
+      - name: "site"
+        label: "Homepage & Contact Details"
+        file: "src/data/site.json"
+        preview_path: "/"
+        fields:
+          - label: "Business Name"
+            name: "businessName"
+            widget: "string"
+            hint: "Shown in the header, footer, and browser tab title."
+          - label: "Tagline"
+            name: "tagline"
+            widget: "string"
+            hint: "A short line used in the footer and the browser search result description."
+          - label: "Hero Section"
+            name: "hero"
+            widget: "object"
+            hint: "The large banner at the top of the homepage."
+            fields:
+              - { label: "Headline", name: "headline", widget: "string" }
+              - { label: "Subtext", name: "subtext", widget: "text" }
+          - label: "Contact Details"
+            name: "contact"
+            widget: "object"
+            fields:
+              - label: "Phone Number"
+                name: "phone"
+                widget: "string"
+                hint: "Shown in the footer, and used to make the phone number clickable."
+              - label: "Email Address"
+                name: "email"
+                widget: "string"
+                hint: "Shown in the footer, and used to make the email address clickable."
+
+  - name: "services"
+    label: "Services"
+    files:
+      - name: "services"
+        label: "Services List"
+        file: "src/data/services.json"
+        preview_path: "/#services"
+        fields:
+          - label: "Section Heading"
+            name: "heading"
+            widget: "string"
+            hint: "Title shown above the services list, e.g. 'Our Services'."
+          - label: "Intro Text"
+            name: "intro"
+            widget: "text"
+            hint: "One sentence introducing your services."
+          - label: "Services"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+
+  - name: "gallery"
+    label: "Gallery"
+    files:
+      - name: "gallery"
+        label: "Gallery Images"
+        file: "src/data/gallery.json"
+        preview_path: "/#gallery"
+        fields:
+          - label: "Gallery Items"
+            name: "items"
+            widget: "list"
+            summary: "{{fields.alt}}"
+            fields:
+              - label: "Image"
+                name: "image"
+                widget: "image"
+                hint: "Square photos work best in the grid."
+                media_folder: "/public/uploads/gallery"
+                public_folder: "/uploads/gallery"
+              - label: "Alt Text"
+                name: "alt"
+                widget: "string"
+                hint: "Describe the photo for visually impaired visitors and search engines. Required."
+              - label: "Caption"
+                name: "caption"
+                widget: "string"
+                required: false
+                hint: "Optional short label shown under the photo."
