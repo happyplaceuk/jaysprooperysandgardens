@@ -1,9 +1,12 @@
 ---
+export const prerender = false; // Reviews section needs to read live data on every request.
+
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
 import Services from '../components/Services.astro';
 import Gallery from '../components/Gallery.astro';
+import Reviews from '../components/Reviews.astro';
 import Footer from '../components/Footer.astro';
 ---
 
@@ -13,6 +16,7 @@ import Footer from '../components/Footer.astro';
     <Hero />
     <Services />
     <Gallery />
+    <Reviews />
   </main>
   <Footer />
 </BaseLayout>

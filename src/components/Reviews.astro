@@ -1,0 +1,105 @@
+---
+import { readReviews } from '../lib/reviews';
+
+const reviews = await readReviews();
+const submitted = Astro.url.searchParams.get('submitted') === '1';
+const hadError = Astro.url.searchParams.get('error') === '1';
+
+function stars(rating: number) {
+  return '★'.repeat(rating) + '☆'.repeat(5 - rating);
+}
+---
+
+<section id="reviews" class="bg-stone-50 py-20 sm:py-24">
+  <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-2xl text-center">
+      <h2 class="text-balance text-3xl font-bold tracking-tight text-stone-900">Reviews</h2>
+      <p class="mt-4 text-stone-600">What customers have said about our work.</p>
+    </div>
+
+    {reviews.length > 0 ? (
+      <ul class="mt-12 space-y-6">
+        {reviews.map((review) => (
+          <li class="rounded-lg border border-stone-200 bg-white p-6">
+            <div class="flex items-center justify-between gap-4">
+              <p class="font-semibold text-stone-900">{review.name}</p>
+              <p class="text-green-700" aria-label={`${review.rating} out of 5 stars`}>{stars(review.rating)}</p>
+            </div>
+            <p class="mt-2 text-sm leading-relaxed text-stone-600">{review.text}</p>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="mt-12 text-center text-stone-600">No reviews yet — be the first to leave one.</p>
+    )}
+
+    <div class="mt-16 border-t border-stone-200 pt-12">
+      <h3 class="text-xl font-semibold text-stone-900">Leave a Review</h3>
+
+      {submitted && (
+        <p class="mt-4 rounded-md bg-green-50 px-4 py-3 text-sm font-medium text-green-800">
+          Thanks — your review has been posted.
+        </p>
+      )}
+      {hadError && (
+        <p class="mt-4 rounded-md bg-red-50 px-4 py-3 text-sm font-medium text-red-800">
+          Please fill in your name and review before submitting.
+        </p>
+      )}
+
+      <form method="POST" action="/api/reviews" class="mt-6 space-y-4">
+        <div>
+          <label for="name" class="block text-sm font-medium text-stone-700">Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            maxlength="80"
+            class="mt-1 block w-full rounded-md border border-stone-300 px-3 py-2 text-stone-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700"
+          />
+        </div>
+
+        <div>
+          <label for="rating" class="block text-sm font-medium text-stone-700">Rating</label>
+          <select
+            id="rating"
+            name="rating"
+            class="mt-1 block w-full rounded-md border border-stone-300 px-3 py-2 text-stone-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700"
+          >
+            <option value="5">★★★★★ (5)</option>
+            <option value="4">★★★★☆ (4)</option>
+            <option value="3">★★★☆☆ (3)</option>
+            <option value="2">★★☆☆☆ (2)</option>
+            <option value="1">★☆☆☆☆ (1)</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="text" class="block text-sm font-medium text-stone-700">Your review</label>
+          <textarea
+            id="text"
+            name="text"
+            required
+            maxlength="1000"
+            rows="4"
+            class="mt-1 block w-full rounded-md border border-stone-300 px-3 py-2 text-stone-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700"
+          ></textarea>
+        </div>
+
+        <!-- Honeypot: hidden from real visitors, left blank; bots that fill every field trip it. -->
+        <div style="position:absolute; left:-9999px;" aria-hidden="true">
+          <label for="company">Company</label>
+          <input type="text" id="company" name="company" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <button
+          type="submit"
+          class="inline-block rounded-md bg-green-800 px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-green-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-800"
+        >
+          Submit Review
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
