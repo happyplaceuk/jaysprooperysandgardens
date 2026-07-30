@@ -1,0 +1,105 @@
+---
+export const prerender = false;
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { readUploadedGalleryItems } from '../lib/gallery';
+
+const uploaded = await readUploadedGalleryItems();
+const submitted = Astro.url.searchParams.get('submitted') === '1';
+const errorType = Astro.url.searchParams.get('error');
+---
+
+<BaseLayout title="Upload Photos | Jay's properties and gardens">
+  <main class="mx-auto max-w-2xl px-4 py-16 sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-bold tracking-tight text-stone-900">Upload Gallery Photos</h1>
+    <p class="mt-2 text-stone-600">
+      Add a new photo to the "Our Work" section of the website. It'll appear on the site within
+      a few seconds of uploading.
+    </p>
+
+    {submitted && (
+      <p class="mt-6 rounded-md bg-green-50 px-4 py-3 text-sm font-medium text-green-800">
+        Photo uploaded — check the site's Gallery section shortly.
+      </p>
+    )}
+    {errorType === 'file' && (
+      <p class="mt-6 rounded-md bg-red-50 px-4 py-3 text-sm font-medium text-red-800">
+        Please choose an image file to upload.
+      </p>
+    )}
+    {errorType === 'type' && (
+      <p class="mt-6 rounded-md bg-red-50 px-4 py-3 text-sm font-medium text-red-800">
+        That file doesn't look like an image (jpg, png, or webp). Please try a different file.
+      </p>
+    )}
+    {errorType === 'size' && (
+      <p class="mt-6 rounded-md bg-red-50 px-4 py-3 text-sm font-medium text-red-800">
+        That file is too large (10MB max). Please try a smaller photo.
+      </p>
+    )}
+
+    <form method="POST" action="/api/upload" enctype="multipart/form-data" class="mt-8 space-y-4">
+      <div>
+        <label for="photo" class="block text-sm font-medium text-stone-700">Photo</label>
+        <input
+          type="file"
+          id="photo"
+          name="photo"
+          accept="image/jpeg,image/png,image/webp"
+          required
+          class="mt-1 block w-full rounded-md border border-stone-300 px-3 py-2 text-stone-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700"
+        />
+      </div>
+
+      <div>
+        <label for="alt" class="block text-sm font-medium text-stone-700">Describe the photo</label>
+        <input
+          type="text"
+          id="alt"
+          name="alt"
+          required
+          maxlength="150"
+          placeholder="e.g. Newly installed garden fence"
+          class="mt-1 block w-full rounded-md border border-stone-300 px-3 py-2 text-stone-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700"
+        />
+        <p class="mt-1 text-xs text-stone-500">Helps visually impaired visitors and search engines understand the photo.</p>
+      </div>
+
+      <div>
+        <label for="caption" class="block text-sm font-medium text-stone-700">Caption (optional)</label>
+        <input
+          type="text"
+          id="caption"
+          name="caption"
+          maxlength="60"
+          placeholder="e.g. Fencing & gates"
+          class="mt-1 block w-full rounded-md border border-stone-300 px-3 py-2 text-stone-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700"
+        />
+        <p class="mt-1 text-xs text-stone-500">A short label shown under the photo on the site.</p>
+      </div>
+
+      <button
+        type="submit"
+        class="inline-block rounded-md bg-green-800 px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-green-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-800"
+      >
+        Upload Photo
+      </button>
+    </form>
+
+    {uploaded.length > 0 && (
+      <div class="mt-16 border-t border-stone-200 pt-8">
+        <h2 class="text-lg font-semibold text-stone-900">Photos you've uploaded here</h2>
+        <div class="mt-4 grid grid-cols-3 gap-3 sm:grid-cols-4">
+          {uploaded.map((item) => (
+            <img
+              src={item.image}
+              alt={item.alt}
+              loading="lazy"
+              class="aspect-square w-full rounded-md object-cover"
+            />
+          ))}
+        </div>
+      </div>
+    )}
+  </main>
+</BaseLayout>
