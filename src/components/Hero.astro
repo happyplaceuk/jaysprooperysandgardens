@@ -1,7 +1,7 @@
 ---
 import site from '../data/site.json';
 const { headline, subtext } = site.hero;
-const { phone, email } = site.contact;
+const { name, phone, email } = site.contact;
 const telHref = `tel:${phone.replace(/\s+/g, '')}`;
 const mailHref = `mailto:${email}`;
 
@@ -14,6 +14,7 @@ const linkClasses =
     <h1 class="text-balance text-4xl font-bold tracking-tight sm:text-5xl">{headline}</h1>
     <p class="mx-auto mt-6 max-w-2xl text-lg text-green-50">{subtext}</p>
     <p class="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-green-50">
+      <span class="font-medium">{name}</span>
       <a href={telHref} class={linkClasses}>{phone}</a>
       <a href={mailHref} class:list={[linkClasses, 'break-all']}>{email}</a>
     </p>

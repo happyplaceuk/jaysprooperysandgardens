@@ -2,10 +2,11 @@
   "businessName": "Jay's properties and gardens",
   "tagline": "Honest, reliable property and garden care you can trust",
   "hero": {
-    "headline": "Beautiful Properties & Gardens, Built to Last",
-    "subtext": "Friendly, local property and garden care, done right."
+    "headline": "Beautiful home and garden improvements, built to last.",
+    "subtext": "Honest professional advice gained from over 25 years experience."
   },
   "contact": {
+    "name": "James Dell",
     "phone": "07535 457266",
     "email": "jayspropertiesandgardens@gmail.com"
   }
